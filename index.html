@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WalkUp - 开发团队</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* 顶部欢迎横幅 - 只在电脑端显示 */
+        .welcome-banner {
+            width: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 300% 300%;
+            animation: gradientShift 5s ease infinite;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* 手机端隐藏 */
+        @media (max-width: 768px) {
+            .welcome-banner {
+                display: none;
+            }
+        }
+        
+        /* 主体内容 */
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: #1a1a2e;
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            font-size: 3.5em;
+            margin: 30px 0 10px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .tagline {
+            font-size: 1.3em;
+            color: #a0a0a0;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部欢迎横幅 -->
+    <div class="welcome-banner">
+        🎉 欢迎来到 WalkUp 网页！
+    </div>
+    
+    <div class="container">
+        <h1>🚀 WalkUp</h1>
+        <p class="tagline">欢迎加入 WalkUp 开发团队</p >
+        
+        <div class="card">
+            <h2>关于我们</h2>
+            <p>WalkUp 是一个充满活力的开发项目，我们正在寻找志同道合的开发者加入。</p >
+            <p>无论你是前端、后端还是全栈开发者，都欢迎加入我们！</p >
+            <a href=" " class="btn">联系我们</a >
+        </div>
+        
+        <div class="card">
+            <h2>技术栈</h2>
+            <p>🌐 前端 | ⚙️ 后端 | 📱 移动端</p >
+        </div>
+    </div>
+</body>
+</html>
