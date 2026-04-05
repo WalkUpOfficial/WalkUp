@@ -102,7 +102,7 @@
         }
 
         .join-info.show {
-            max-height: 200px;
+            max-height: 250px;
             padding: 20px;
             margin-top: 20px;
         }
@@ -117,11 +117,36 @@
             display: inline-block;
             background: #667eea;
             color: white;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.3em;
             margin-top: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            user-select: all;
+        }
+
+        .qq-number:hover {
+            transform: scale(1.05);
+            background: #764ba2;
+        }
+
+        .qq-number:active {
+            transform: scale(0.95);
+        }
+
+        /* 复制成功提示 */
+        .copy-tip {
+            color: #52c41a;
+            font-size: 0.9em;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .copy-tip.show {
+            opacity: 1;
         }
     </style>
 </head>
@@ -143,8 +168,9 @@
             
             <div class="join-info" id="joinInfo">
                 <p>📱 请确认您有 QQ 账号</p>
-                <p>在 QQ 里加入群聊：</p>
-                <span class="qq-number">1092184461</span>
+                <p>在 QQ 里加入群聊，点击复制群号：</p>
+                <span class="qq-number" onclick="copyQQ()" id="qqNumber">1092184461</span>
+                <p class="copy-tip" id="copyTip">✅ 已复制到剪贴板！</p>
             </div>
         </div>
 
@@ -158,6 +184,31 @@
         function toggleJoin() {
             const info = document.getElementById('joinInfo');
             info.classList.toggle('show');
+        }
+
+        function copyQQ() {
+            const qqNumber = document.getElementById('qqNumber').innerText;
+            
+            // 复制到剪贴板
+            navigator.clipboard.writeText(qqNumber).then(function() {
+                // 显示提示
+                const tip = document.getElementById('copyTip');
+                tip.classList.add('show');
+                
+                // 2秒后隐藏提示
+                setTimeout(function() {
+                    tip.classList.remove('show');
+                }, 2000);
+            }).catch(function(err) {
+                // 如果复制失败，自动选中文字让用户手动复制
+                const qqElement = document.getElementById('qqNumber');
+                const range = document.createRange();
+                range.selectNode(qqElement);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                
+                alert('请手动复制群号：' + qqNumber);
+            });
         }
     </script>
 </body>
