@@ -148,6 +148,19 @@
         .copy-tip.show {
             opacity: 1;
         }
+
+        /* 新增：新页面的居中布局样式 */
+        .center-box {
+            text-align: center; /* 让内部的文字和按钮水平居中 */
+            padding: 40px 20px; /* 增加一些内边距让卡片更好看 */
+        }
+        
+        .center-sentence {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 25px; /* 句子和按钮之间的距离 */
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -173,6 +186,13 @@
                 <p class="copy-tip" id="copyTip">✅ 已复制到剪贴板！</p>
             </div>
         </div>
+
+        <!-- 新增的页面部分 -->
+        <div class="card center-box">
+            <p class="center-sentence">先用None做替代</p>
+            <button class="btn">看看热门软件</button>
+        </div>
+
     </div>
 
     <script>
