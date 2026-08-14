@@ -1,0 +1,1 @@
+python -m nuitka --onefile --windows-console-mode=disable --plugin-enable=tk-inter --windows-icon-from-ico="Python.ico" --msvc=latest "uninsatll.py"
