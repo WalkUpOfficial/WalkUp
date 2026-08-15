@@ -91,11 +91,7 @@ System.withdraw()
 
 
 def Get_DPI_Power():
-    try:
-        real_dpi = ctypes.windll.shcore.GetDpiForSystem()
-        return real_dpi / 96.0
-    except:
-        return 1.0
+    return round(System.winfo_fpixels('1i') / 96)
 
 
 infomation = {
