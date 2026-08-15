@@ -86,10 +86,11 @@ System.title('System32')
 System.withdraw()
 
 def Get_DPI_Power():
-    return round(System.winfo_fpixels('1i') / 96)
+    return round(System.winfo_fpixels('1i') / 96) * 100
 def Get_DPI_Power_tk():
-    return round(System.winfo_fpixels('1i') / 96) / 100
+    return round(System.winfo_fpixels('1i') / 96)
 
+print(Get_DPI_Power_tk())
 infomation = {
     'CPU Infomation': platform.processor(),
     'CPU num': psutil.cpu_count(logical=True),
