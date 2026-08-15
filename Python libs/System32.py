@@ -25,6 +25,7 @@ from tkinter import messagebox
 import time as tm
 import re
 import hashlib
+import sys
 
 voices = {
         '女-普通': 'zh-CN-XiaoxiaoNeural',
@@ -90,7 +91,6 @@ def Get_DPI_Power():
 def Get_DPI_Power_tk():
     return round(System.winfo_fpixels('1i') / 96)
 
-print(Get_DPI_Power_tk())
 infomation = {
     'CPU Infomation': platform.processor(),
     'CPU num': psutil.cpu_count(logical=True),
@@ -100,7 +100,7 @@ infomation = {
     'screen_h': System.winfo_screenheight(), 
     'DPI':{
         'System':Get_DPI_Power(), 
-        'tkinter':Get_DPI_Power_tk()
+        'tkinter':1# Get_DPI_Power_tk()
     }
 }
 
@@ -154,8 +154,18 @@ SPECIAL_KEYS = {
 }
 
 class computer:
-    def shutown():
+    def shutdown():
         os.system("shutdown /s /t 1")
+    
+    def Get_Administrtor_permissions():
+        if not ctypes.windll.shell32.IsUserAnAdmin():
+            if sys.argv[0].endswith('.pyw'):
+                exe = sys.executable.replace("python.exe", "pythonw.exe")
+            else:
+                exe = sys.executable
+            params = " ".join(f'"{arg}"' for arg in sys.argv)
+            ctypes.windll.shell32.ShellExecuteW(None, "runas", exe, params, None, 1)
+            sys.exit(0)
 
 def Adaptation_DPI_Hight():
     import ctypes
