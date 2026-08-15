@@ -27,41 +27,40 @@ import re
 import hashlib
 
 voices = {
-    '女-普通': 'zh-CN-XiaoxiaoNeural',
-    '女-成年': 'zh-CN-XiaoyiNeural',
-    '女-故事': 'zh-CN-XiaomoNeural',
-    '女-清新': 'zh-CN-XiaoxuanNeural',
-    '女-多语言': 'zh-CN-XiaoxiaoMultilingualNeural',
-    '女-友好': 'zh-CN-XiaochenNeural',
-    '女-友好2': 'zh-CN-XiaochenMultilingualNeural',
-    '女-温柔': 'zh-CN-XiaohanNeural',
-    '女-甜美': 'zh-CN-XiaomengNeural',
-    '女-舒缓': 'zh-CN-XiaoqiuNeural',
-    '女-沙哑': 'zh-CN-XiaoruiNeural',
-    '女-温暖': 'zh-CN-XiaoyanNeural',
-    '女-明亮多语言': 'zh-CN-XiaoyouMultilingualNeural',
-    '女-深沉多语言': 'zh-CN-XiaoyuMultilingualNeural',
-    '女-冷静': 'zh-CN-XiaozhenNeural',
-    # 男声
-    '男-普通': 'zh-CN-YunxiNeural',
-    '男-深沉': 'zh-CN-YunjianNeural',
-    '男-轻松': 'zh-CN-YunxiaNeural',
-    '男-播报': 'zh-CN-YunyangNeural',
-    '男-多语言': 'zh-CN-YunfanMultilingualNeural',
-    '男-自信': 'zh-CN-YunfengNeural',
-    '男-随意': 'zh-CN-YunjieNeural',
-    '男-温和多语言': 'zh-CN-YunxiaoMultilingualNeural',
-    '男-深沉随意': 'zh-CN-YunyeNeural',
-    '男-温和多语言2': 'zh-CN-YunyiMultilingualNeural',
-    '男-正式': 'zh-CN-YunzeNeural',
-    # 方言
-    '男-河南方言': 'zh-CN-henan-YundengNeural',
-    '女-辽宁方言': 'zh-CN-liaoning-XiaobeiNeural',
-    '女-陕西方言': 'zh-CN-shaanxi-XiaoniNeural',
-    '男-山东方言': 'zh-CN-shandong-YunxiangNeural',
-    '男-四川方言': 'zh-CN-sichuan-YunxiNeural',
-}
-
+        '女-普通': 'zh-CN-XiaoxiaoNeural',
+        '女-成年': 'zh-CN-XiaoyiNeural',
+        '女-故事': 'zh-CN-XiaomoNeural',
+        '女-清新': 'zh-CN-XiaoxuanNeural',
+        '女-多语言': 'zh-CN-XiaoxiaoMultilingualNeural',
+        '女-友好': 'zh-CN-XiaochenNeural',
+        '女-友好2': 'zh-CN-XiaochenMultilingualNeural',
+        '女-温柔': 'zh-CN-XiaohanNeural',
+        '女-甜美': 'zh-CN-XiaomengNeural',
+        '女-舒缓': 'zh-CN-XiaoqiuNeural',
+        '女-沙哑': 'zh-CN-XiaoruiNeural',
+        '女-温暖': 'zh-CN-XiaoyanNeural',
+        '女-明亮多语言': 'zh-CN-XiaoyouMultilingualNeural',
+        '女-深沉多语言': 'zh-CN-XiaoyuMultilingualNeural',
+        '女-冷静': 'zh-CN-XiaozhenNeural',
+        # 男声
+        '男-普通': 'zh-CN-YunxiNeural',
+        '男-深沉': 'zh-CN-YunjianNeural',
+        '男-轻松': 'zh-CN-YunxiaNeural',
+        '男-播报': 'zh-CN-YunyangNeural',
+        '男-多语言': 'zh-CN-YunfanMultilingualNeural',
+        '男-自信': 'zh-CN-YunfengNeural',
+        '男-随意': 'zh-CN-YunjieNeural',
+        '男-温和多语言': 'zh-CN-YunxiaoMultilingualNeural',
+        '男-深沉随意': 'zh-CN-YunyeNeural',
+        '男-温和多语言2': 'zh-CN-YunyiMultilingualNeural',
+        '男-正式': 'zh-CN-YunzeNeural',
+        # 方言
+        '男-河南方言': 'zh-CN-henan-YundengNeural',
+        '女-辽宁方言': 'zh-CN-liaoning-XiaobeiNeural',
+        '女-陕西方言': 'zh-CN-shaanxi-XiaoniNeural',
+        '男-山东方言': 'zh-CN-shandong-YunxiangNeural',
+        '男-四川方言': 'zh-CN-sichuan-YunxiNeural',
+    }
 
 class MOUSEINPUT(Structure):
     _fields_ = [
@@ -73,10 +72,8 @@ class MOUSEINPUT(Structure):
         ("dwExtraInfo", c_ulonglong)
     ]
 
-
 class INPUT_UNION(ctypes.Union):
     _fields_ = [("mi", MOUSEINPUT)]
-
 
 class INPUT(Structure):
     _fields_ = [
@@ -84,15 +81,14 @@ class INPUT(Structure):
         ("ii", INPUT_UNION)
     ]
 
-
 System = tk.Tk()
 System.title('System32')
 System.withdraw()
 
-
 def Get_DPI_Power():
     return round(System.winfo_fpixels('1i') / 96)
-
+def Get_DPI_Power_tk():
+    return round(System.winfo_fpixels('1i') / 96) / 100
 
 infomation = {
     'CPU Infomation': platform.processor(),
@@ -100,8 +96,11 @@ infomation = {
     'System Infomation': f'{platform.system()} {platform.version()[:platform.version().index(".")]}',
     'Memory': f'{psutil.virtual_memory().total / (1024 ** 3):.1f} GB',
     'screen_w': System.winfo_screenwidth(),
-    'screen_h': System.winfo_screenheight(),
-    'DPI': Get_DPI_Power()
+    'screen_h': System.winfo_screenheight(), 
+    'DPI':{
+        'System':Get_DPI_Power(), 
+        'tkinter':Get_DPI_Power_tk()
+    }
 }
 
 System.destroy()
@@ -153,11 +152,9 @@ SPECIAL_KEYS = {
     'f12': win32con.VK_F12,
 }
 
-
 class computer:
     def shutown():
         os.system("shutdown /s /t 1")
-
 
 def Adaptation_DPI_Hight():
     import ctypes
@@ -166,7 +163,6 @@ def Adaptation_DPI_Hight():
         ctypes.windll.shcore.SetProcessDpiAwareness(2)
     except:
         ctypes.windll.user32.SetProcessDPIAware()
-
 
 class keys:
     def key(key_string: str, format=False, wait=0):
@@ -243,7 +239,7 @@ class keys:
             if format and not is_last_key:
                 time.sleep(wait)
 
-    def stop(key_string: str = None):
+    def stop(key_string:str=None):
         System32.keys.release()
 
     def hold(key_string: str, format=False, wait=0, long=0):
@@ -271,13 +267,8 @@ class keys:
 
 
 class window:
-    def password(one=True, Error=['Error', 'Warning to much.\n    Try Faild.'], bind='Enter', cnt=0,
-                 title='Enter the password', show="·", sure="Next", font=('Arial', 14), width=10,
-                 text="Please enter the password :", geometry="350x150", password='123',
-                 yes=['Success', '        Correct password ! 😊        '],
-                 no=['Error', 'Incorrect password. Please try again!']):
+    def password(one=True, Error=['Error', 'Warning to much.\n    Try Faild.'], bind='Enter', cnt=0, title='Enter the password', show="·", sure="Next", font=('Arial', 14), width=10, text="Please enter the password :", geometry="350x150", password='123', yes=['Success', '        Correct password ! 😊        '], no=['Error', 'Incorrect password. Please try again!']):
         result = None
-
         def check_password(event=None, password=password, title=title, yes=yes, no=no):
             nonlocal cnt, password_entry, result
             user_input = System32.lock.Hash.bit(text=password_entry.get(), mode=['256 bit'])
@@ -295,7 +286,6 @@ class window:
                     root.destroy()
                     messagebox.showerror(Error[0], Error[1])
                     result = False
-
         root = tk.Tk()
         try:
             import ctypes
@@ -318,19 +308,18 @@ class window:
         y = (screen_h - geo_h)
         root.geometry(f"{geo_w}x{geo_h}+{x}+{y}")
         root.resizable(False, False)
-        label = tk.Label(root, text=text, font=("Arial", 12 * dpi_scale))
+        label = tk.Label(root, text=text, font=("Arial", 12*dpi_scale))
         label.pack(pady=10)
-        password_entry = tk.Entry(root, show=show, font=(font[0], font[1] * dpi_scale), width=20)
+        password_entry = tk.Entry(root, show=show, font=(font[0], font[1]*dpi_scale), width=20)
         password_entry.pack(pady=5)
-        button = tk.Button(root, text=sure, command=check_password, font=(font[0], (font[1] - 2) * dpi_scale),
-                           width=width * dpi_scale)
+        button = tk.Button(root, text=sure, command=check_password, font=(font[0], (font[1]-2)*dpi_scale), width=width*dpi_scale)
         button.pack(pady=10)
         if bind == 'Enter':
             bind = 'Return'
         root.bind(f'<{bind}>', lambda e: check_password())
         root.mainloop()
         return result
-
+    
     def up(Window=''):
         windows = gw.getWindowsWithTitle(Window)
         if not windows:
@@ -346,7 +335,7 @@ class window:
         time.sleep(0.1)
         System32.up(Window=Window)
 
-    def notwindow(title="Windows", text="Tips", do=lambda: print('hello word.'), x=500, y=200):
+    def notwindow(title="Windows", text="Tips", do=lambda:print('hello word.'), x=500, y=200):
         root = tk.Tk()
         root.title(title)
         root.geometry(f"{x}x{y}+{infomation['screen_w'] // 2 - x // 2}+{infomation['screen_h'] // 2 - y // 2}")
@@ -356,12 +345,11 @@ class window:
         new_style = style & ~WS_SYSMENU
         ctypes.windll.user32.SetWindowLongPtrW(Hwnd, GWL_STYLE, new_style)
         ctypes.windll.user32.SetWindowPos(Hwnd, 0, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED)
-        tk.Label(root, text=text, font=("Microsoft YaHei", 12)).pack(pady=50)  # Arial
+        tk.Label(root, text=text, font=("Microsoft YaHei", 12)).pack(pady=50) # Arial
         do()
         root.after(500, root.destroy)
 
         root.mainloop()
-
 
 class mouse:
     def mouse(dx=0, dy=0):
@@ -377,7 +365,6 @@ class mouse:
         if result == 0:
             print(f"[警告] SendInput 失败！请确保以 Administrtor 运行 Python ! ")
         return result
-
     def move(x=infomation['screen_w'] // 2, y=infomation['screen_h'] // 2, duration=0.5):
         start_x, start_y = win32api.GetCursorPos()
         distance = math.hypot(x - start_x, y - start_y)
@@ -395,8 +382,8 @@ class mouse:
             t = step / steps
             ease_t = 1 - (1 - t) ** 3
             inv_t = 1 - ease_t
-            current_x = int(inv_t ** 2 * start_x + 2 * inv_t * ease_t * ctrl_x + ease_t ** 2 * x)
-            current_y = int(inv_t ** 2 * start_y + 2 * inv_t * ease_t * ctrl_y + ease_t ** 2 * y)
+            current_x = int(inv_t**2 * start_x + 2 * inv_t * ease_t * ctrl_x + ease_t**2 * x)
+            current_y = int(inv_t**2 * start_y + 2 * inv_t * ease_t * ctrl_y + ease_t**2 * y)
             win32api.SetCursorPos((current_x, current_y))
             time.sleep(step_delay)
 
@@ -435,7 +422,6 @@ class mouse:
             win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, delta, 0)
             time.sleep(wait)
 
-
 class file:
     def startup(path):
         os.startfile(path)
@@ -450,14 +436,13 @@ class file:
 
     def copy(file, dir):
         shutil.copy2(file, dir)
-
+    
     def listdir(path=r'C:\\'):
         result = []
         for root, dirs, files in os.walk(path):
             for f in files:
                 result.append(os.path.join(root, f))
         return result
-
     def deletes(paths=[]):
         for i in paths:
             if i == list:
@@ -465,7 +450,6 @@ class file:
                     System32.file.delete(path=j)
                     continue
             System32.file.delete(path=i)
-
     def user():
         return os.path.expanduser('~')
 
@@ -476,14 +460,12 @@ class file:
             raise SyntaxWarning('Please provide the \'filename\' for WalkUp Studios')
         if filesnumer is None:
             filesnumer = 10000000
-
         def _is_safe_name(name):
             if len(name) > 150:
                 return False
             if not re.match(r'^[\w\u4e00-\u9fa5\s.\-]+$', name):
                 return False
             return True
-
         def _search_in_path(path):
             nonlocal numer, returnpath
             try:
@@ -501,23 +483,20 @@ class file:
             except PermissionError:
                 pass
             return False
-
         if findpath is None:
             if hasattr(os, 'listdrives'):
                 drives = os.listdrives()
             else:
                 drives = [f"{chr(d)}:\\" for d in range(65, 91) if os.path.exists(f"{chr(d)}:\\")]
-
+                
             for drive in drives:
                 if _search_in_path(drive):
                     break
         else:
             _search_in_path(findpath)
         return returnpath
-
     def temp():
         return os.environ.get('TEMP')
-
 
 class debug:
     def direction():
@@ -527,46 +506,38 @@ class debug:
 
     def end():
         time.sleep(0.02)
-
-
+    
 class date:
     def now():
         s = datetime.now()
         when = f'[{s.hour}:{s.minute}:{s.second}]'
         return when
-
     def hour():
         s = datetime.now()
         when = s.hour
         return when
-
     def minute():
         s = datetime.now()
         when = s.minute
         return when
-
     def second():
         s = datetime.now()
         when = s.second
         return when
-
-
 class mpv:
     class mp3:
-        async def generate_audio(path=file.user(), name='temp', text='此音频由 e d g e t t s 库生成', voice='女-普通',
-                                 speed='+0%', volumed='+0%'):
+        async def generate_audio(path=file.user(), name='temp', text='此音频由 e d g e t t s 库生成', voice='女-普通', speed='+0%', volumed='+0%'):
             using_voice = voices.get(voice, 'zh-CN-YunxiNeural')
-            file = path + '\\' + name + '.mp3'
-
+            file = path+'\\'+name+'.mp3'
+            
             await edge_tts.Communicate(text, using_voice, rate=speed, volume=volumed).save(file)
-
+            
             return file
 
-        def casting(path=file.user(), name='temp', text='此音频由 e d g e t t s 库生成', voice='女-普通', speed='+0%',
-                    volumed='+0%'):
+        def casting(path=file.user(), name='temp', text='此音频由 e d g e t t s 库生成', voice='女-普通', speed='+0%', volumed='+0%'):
             def _run_async():
                 asyncio.run(System32.mpv.mp3.generate_audio(path, name, text, voice, speed, volumed))
-
+            
             t = threading.Thread(target=_run_async)
             t.start()
 
@@ -582,52 +553,44 @@ class mpv:
             t.daemon = True
             t.start()
 
-        def take(paths=file.user(), names='temp', texts='此音频由 e d g e t t s 库生成', voices='女-普通', speeds='+0%',
-                 volumeds='+0%'):
+        def take(paths=file.user(), names='temp', texts='此音频由 e d g e t t s 库生成', voices='女-普通', speeds='+0%', volumeds='+0%'):
             def _task():
-                System32.mpv.mp3.casting(path=paths, name=names, text=texts, voice=voices, speed=speeds,
-                                         volumed=volumeds)
+                System32.mpv.mp3.casting(path=paths, name=names, text=texts, voice=voices, speed=speeds, volumed=volumeds)
                 asyncio.run(System32.mpv.mp3.generate_audio(paths, names, texts, voices, speeds, volumeds))
-
-                System32.mpv.mp3.music(paths + '\\' + names + '.mp3')
-                os.remove(paths + '\\' + names + '.mp3')
+                
+                System32.mpv.mp3.music(paths+'\\'+names+'.mp3')
+                os.remove(paths+'\\'+names+'.mp3')
 
             t = threading.Thread(target=_task)
             t.start()
 
-        def temp(paths=file.user(), name='temp', text='此音频由 e d g e t t s 库生成', voice='女-普通', speed='+0%',
-                 volumed='+0%'):
+        def temp(paths=file.user(), name='temp', text='此音频由 e d g e t t s 库生成', voice='女-普通', speed='+0%', volumed='+0%'):
             def _task():
-                asyncio.run(System32.mpv.mp3.generate_audio(path=paths, name=name, text=text, voice=voice, speed=speed,
-                                                            volumed=volumed))
+                asyncio.run(System32.mpv.mp3.generate_audio(path=paths, name=name, text=text, voice=voice, speed=speed, volumed=volumed))
                 try:
-                    playsound.playsound(paths + '\\' + name + '.mp3')
+                    playsound.playsound(paths+'\\'+name+'.mp3')
                 except Exception as e:
                     print(f"播放出错: {e}")
-                if os.path.exists(paths + '\\' + name + '.mp3'):
-                    os.remove(paths + '\\' + name + '.mp3')
+                if os.path.exists(paths+'\\'+name+'.mp3'):
+                    os.remove(paths+'\\'+name+'.mp3')
 
             t = threading.Thread(target=_task)
             t.start()
 
     class mp4:
-        def show(path=None, title='mp4', arrow='none', bgcolor='black', one=False, first=False, maximization=True,
-                 width=750, hight=440):
+        def show(path=None, title='mp4', arrow='none', bgcolor='black', one=False, first=False, maximization=True, width=750, hight=440):
             if path:
                 root = tk.Tk()
                 root.bind('<Escape>', lambda event: root.destroy())
-                root.geometry(
-                    f"{width}x{hight}+{root.winfo_screenwidth() // 2 - width // 2}+{root.winfo_screenheight() // 2 - hight // 2}")
+                root.geometry(f"{width}x{hight}+{root.winfo_screenwidth() // 2 - width // 2}+{root.winfo_screenheight() // 2 - hight // 2}")
                 root.update()
                 tm.sleep(0.3)
                 root.title(title)
                 root.config(cursor=arrow)
-
                 def ones():
                     root.state('zoomed')
                     root.update()
                     root.attributes('-fullscreen', one)
-
                 if one:
                     ones()
                 root.attributes('-topmost', first)
@@ -650,7 +613,7 @@ class mpv:
 
 class lock:
     class Hash:
-        def bit(text='abc', mode=['32 bit']):
+        def bit(text, mode=['32 bit']):
             if mode[0] == '32 bit':
                 return hashlib.md5(text.encode('utf-8')).hexdigest()
             elif mode[0] == '64 bit':
