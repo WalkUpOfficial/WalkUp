@@ -4,9 +4,10 @@ import Terminal
 import sys
 import os
 import time as tm
+import System32
 
 if sys.platform == 'win32':
-    os.system('') 
+    os.system('')
 
 message = 'hello'
 current_y = 0
@@ -34,3 +35,5 @@ while True:
     Terminal.output(f'\'{message}\' [.__worked__.]', y=current_y, x=0)
     tm.sleep(1.5)
     os.startfile(r'C:\Users\WalkUp\Desktop\Temp.md')
+    tm.sleep(2)
+    System32.keys.key('ctrl-s')
