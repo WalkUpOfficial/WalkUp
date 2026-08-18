@@ -51,14 +51,14 @@ class main:
             tk.Label(temp, text=Error, font=('Microsoft YaHei', 18), anchor='center').place(relx=0.5, rely=0.5, anchor='center')
             
             for i in range(0, 401):
-                current_x = center_x - i // 4
+                current_x = center_x - i # // 2
                 temp.geometry(f'{i}x150+{current_x}+{center_y}')
                 self.root.update()
                 
             tm.sleep(2)
             
             for i in range(400, -1, -1):
-                current_x = center_x - i // 4
+                current_x = center_x - i # // 2
                 temp.geometry(f'{i}x150+{current_x}+{center_y}')
                 self.root.update()
                 
@@ -110,9 +110,9 @@ class main:
                 return False
             self.c += '/'
         
-        def copile():
+        def compile():
             try:
-                answer = exec(self.c)
+                answer = eval(self.c)
                 io(answer)
             except:
                 disk('The formula is incorrect.')
@@ -120,6 +120,7 @@ class main:
         tk.Button(self.root, text='    %    ', command=_percent, font=('Microsoft YaHei', 18, 'bold')).place(x=20, y=130)
         tk.Button(self.root, text='    +    ', command=_add, font=('Microsoft YaHei', 18, 'bold')).place(x=140, y=130)
         tk.Button(self.root, text='    -    ', command=_back, font=('Microsoft YaHei', 18, 'bold')).place(x=260, y=130)
+        tk.Button(self.root, text='    *    ', command=_ride, font=('Microsoft YaHei', 18, 'bold')).place(x=380, y=130)
         
         # Display
         self.root.mainloop()
