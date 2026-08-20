@@ -1,0 +1,1 @@
+print(' '.join(map(str, set(list(map(int,input().split()))))))

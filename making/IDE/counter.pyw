@@ -121,6 +121,7 @@ class main:
         tk.Button(self.root, text='    +    ', command=_add, font=('Microsoft YaHei', 18, 'bold')).place(x=140, y=130)
         tk.Button(self.root, text='    -    ', command=_back, font=('Microsoft YaHei', 18, 'bold')).place(x=260, y=130)
         tk.Button(self.root, text='    *    ', command=_ride, font=('Microsoft YaHei', 18, 'bold')).place(x=380, y=130)
+        tk.Button(self.root, text='    /    ', command=_besides, font=('Microsoft YaHei', 18, 'bold')).place(x=500, y=130)
         
         # Display
         self.root.mainloop()
