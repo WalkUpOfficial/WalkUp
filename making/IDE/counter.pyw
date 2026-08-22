@@ -25,13 +25,13 @@ class main:
         update()
         self.root.title('counter')
         update()
-        self.root.geometry(f'600x800+{System32.infomation['screen_w'] // 2 - 600 // 3}+{System32.infomation['screen_h'] // 2 - 800 // 3}')
+        self.root.geometry(f'600x400+{System32.infomation['screen_w'] // 2 - 600 // 3}+{System32.infomation['screen_h'] // 2 - 400 // 3}')
         update()
         self.root.resizable(False, False)
         update()
         
         # Text_loader
-        self.text_loader = tk.Text(self.root, font=('Microsoft YaHei', 24))
+        self.text_loader = tk.Text(self.root, font=('Microsoft YaHei', 48))
         update()
         self.text_loader.place(width=550, height=80, x=20, y=30)
         update()
@@ -51,14 +51,14 @@ class main:
             tk.Label(temp, text=Error, font=('Microsoft YaHei', 18), anchor='center').place(relx=0.5, rely=0.5, anchor='center')
             
             for i in range(0, 401):
-                current_x = center_x - i # // 2
+                current_x = center_x - i // 2
                 temp.geometry(f'{i}x150+{current_x}+{center_y}')
                 self.root.update()
                 
             tm.sleep(2)
             
             for i in range(400, -1, -1):
-                current_x = center_x - i # // 2
+                current_x = center_x - i // 2
                 temp.geometry(f'{i}x150+{current_x}+{center_y}')
                 self.root.update()
                 
@@ -66,6 +66,7 @@ class main:
         
         # I/O insert
         def io(text):
+            self.c = self.text_loader.get("1.0", tk.END)+text
             update()
             self.text_loader.config(state=tk.NORMAL)
             update()
@@ -77,39 +78,75 @@ class main:
         # Button_DSL
         def _percent():
             s = self.text_loader.get("1.0", tk.END)
-            if not s[-1].isdigit():
+            if not s[-2].isdigit():
                 disk('There are no numbers in front.')
                 return False
-            self.c += '%'
+            io('%')
         
         def _add():
             s = self.text_loader.get("1.0", tk.END)
-            if not s[-1].isdigit():
+            if not s[-2].isdigit():
                 disk('There are no numbers in front.')
                 return False
-            self.c += '+'
+            io('+')
         
         def _back():
             s = self.text_loader.get("1.0", tk.END)
-            if not s[-1].isdigit():
+            if not s[-2].isdigit():
                 disk('There are no numbers in front.')
                 return False
-            self.c += '-'
+            io('-')
         
         def _ride():
             s = self.text_loader.get("1.0", tk.END)
-            if not s[-1].isdigit():
+            if not s[-2].isdigit():
                 disk('There are no numbers in front.')
                 return False
-            self.c += '*'
+            io('*')
         
         def _besides():
             s = self.text_loader.get("1.0", tk.END)
-            if not s[-1].isdigit():
+            if not s[-2].isdigit():
                 disk('There are no numbers in front.')
                 return False
-            self.c += '/'
-        
+            io('/')
+
+        def num0():
+            io('0')
+
+        def num1():
+            io('1')
+
+        def num2():
+            io('2')
+
+        def num3():
+            io('3')
+
+        def num4():
+            io('4')
+
+        def num5():
+            io('5')
+
+        def num6():
+            io('6')
+
+        def num7():
+            io('7')
+
+        def num8():
+            io('8')
+
+        def num9():
+            io('9')
+
+        def back():
+            self.c = self.text_loader.get("1.0", tk.END)[:-2]
+            self.text_loader.delete('1.0', tk.END)
+            for i in self.c:
+                self.text_loader.insert(tk.END, i)
+
         def compile():
             try:
                 answer = eval(self.c)
@@ -122,6 +159,7 @@ class main:
         tk.Button(self.root, text='    -    ', command=_back, font=('Microsoft YaHei', 18, 'bold')).place(x=260, y=130)
         tk.Button(self.root, text='    *    ', command=_ride, font=('Microsoft YaHei', 18, 'bold')).place(x=380, y=130)
         tk.Button(self.root, text='    /    ', command=_besides, font=('Microsoft YaHei', 18, 'bold')).place(x=500, y=130)
+        tk.Button(self.root, text='    0    ', command=num0, font=('Microsoft YaHei', 18, 'bold')).place(x=500, y=700)
         
         # Display
         self.root.mainloop()
